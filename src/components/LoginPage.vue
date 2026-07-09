@@ -20,11 +20,11 @@ const validateForm = () => {
   usernameError.value = ''
   passwordError.value = ''
   if (!username.value.trim()) {
-    usernameError.value = '请输入用户名'
+    usernameError.value = 'Please enter your username'
     valid = false
   }
   if (!password.value.trim()) {
-    passwordError.value = '请输入密码'
+    passwordError.value = 'Please enter your password'
     valid = false
   }
   return valid
@@ -67,7 +67,7 @@ const handleLogin = async () => {
           <div class="field-group">
             <t-input
               v-model="username"
-              placeholder="请输入用户名"
+              placeholder="Enter your username"
               size="large"
               :status="usernameError ? 'error' : 'default'"
               @input="usernameError = ''"
@@ -82,7 +82,7 @@ const handleLogin = async () => {
               <input
                 v-model="password"
                 :type="showPassword ? 'text' : 'password'"
-                placeholder="请输入密码"
+                placeholder="Enter your password"
                 class="password-input"
                 @focus="passwordFocused = true"
                 @blur="passwordFocused = false"
