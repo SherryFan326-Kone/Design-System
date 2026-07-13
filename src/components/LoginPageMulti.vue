@@ -148,7 +148,7 @@ function handleKoneLogin() {
   isLoading.value = true
   setTimeout(() => {
     isLoading.value = false
-    MessagePlugin.success('Login successful! Redirecting to KONE Account', 3000)
+    MessagePlugin.success('Login successful! Redirecting to KONE SSO', 3000)
   }, 800)
 }
 
@@ -283,8 +283,6 @@ const emailSendLabel = computed(() =>
           <!-- Divider -->
           <div class="divider-row">
             <span class="divider-line" />
-            <span class="divider-text">Or</span>
-            <span class="divider-line" />
           </div>
         </form>
 
@@ -352,14 +350,12 @@ const emailSendLabel = computed(() =>
           <!-- Divider -->
           <div class="divider-row">
             <span class="divider-line" />
-            <span class="divider-text">Or</span>
-            <span class="divider-line" />
           </div>
         </form>
 
-        <!-- Log In with KONE Account 按钮 -->
+        <!-- Log In with KONE SSO 按钮 -->
         <button class="kone-account-btn" @click="loginMode = 'kone'">
-          Log In with KONE Account
+          Log In with KONE SSO
         </button>
 
       </div>
@@ -373,7 +369,7 @@ const emailSendLabel = computed(() =>
           :loading="isLoading"
           class="login-btn"
           @click="handleKoneLogin"
-        ><strong>Log in with KONE Account</strong></t-button>
+        ><strong>Log in with KONE SSO</strong></t-button>
 
         <div class="policy-row">
           <t-checkbox v-model="agreed">
@@ -769,23 +765,23 @@ const emailSendLabel = computed(() =>
   white-space: nowrap;
 }
 
-/* Log In with KONE Account 次要按钮 */
+/* Log In with KONE SSO 次要按钮 */
 .kone-account-btn {
   width: 100%;
   height: 40px;
   border: none;
   border-radius: 128px;
-  background: var(--bg-color-component);
+  background: var(--brand-color-light);
   font-size: 16px;
   font-weight: 600;
-  color: var(--text-color-primary);
+  color: var(--brand-color);
   font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   cursor: pointer;
   transition: background 0.2s;
   box-sizing: border-box;
 }
 .kone-account-btn:hover {
-  background: var(--bg-color-component-hover);
+  background: var(--brand-color-light-hover);
 }
 
 /* 返回链接 */
