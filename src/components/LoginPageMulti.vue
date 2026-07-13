@@ -99,6 +99,10 @@ function sendEmailCode() {
     emailError.value = 'Please enter your email'
     return
   }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+    emailError.value = 'Please enter a valid email address'
+    return
+  }
   emailSent.value = true
   startCountdown('email')
   MessagePlugin.success('Verification code sent', 3000)
@@ -127,6 +131,10 @@ function handleEmailLogin() {
   emailCaptchaError.value = ''
   if (!email.value.trim()) {
     emailError.value = 'Please enter your email'
+    return
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+    emailError.value = 'Please enter a valid email address'
     return
   }
   if (!emailCaptcha.value.trim()) {
@@ -295,7 +303,7 @@ const emailSendLabel = computed(() =>
               <div class="input-wrapper" :class="{ 'is-error': emailError }">
                 <input
                   v-model="email"
-                  type="email"
+                  type="text"
                   placeholder="Email address"
                   class="base-input"
                   @input="emailError = ''"
@@ -457,7 +465,7 @@ const emailSendLabel = computed(() =>
 .login-body {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
   width: 100%;
 }
 
