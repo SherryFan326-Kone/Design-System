@@ -14,8 +14,10 @@ inclusion: always
 
 - 用 TDesign 组件负责结构和交互，**不要**用 TDesign 默认的颜色和样式
 - 所有颜色、圆角、间距必须替换为本文件中定义的 China Token 值
-- 覆盖 TDesign 样式时，用 `:deep()` + `!important` 组合，或覆盖 TDesign 的 CSS 变量（如 `--td-brand-color`）
+- **覆盖 TDesign 样式的正确方式：优先在全局 `style.css` 的 `:root` 中覆盖 TDesign CSS 变量**（如 `--td-brand-color: #1450f5`），这是最稳定、最彻底的方式，所有组件自动生效，无需逐个覆盖
+- **不推荐**在组件内用 `:deep()` + `!important` 逐个覆盖色值，TDesign 内部选择器优先级可能导致覆盖不稳定
 - 按钮等组件优先使用 TDesign 官方 prop 实现效果（如胶囊按钮用 `shape="round"`，不要用 CSS 硬改圆角）
+- 项目的 `src/style.css` 已在 `:root` 中完整覆盖了所有 TDesign CSS 变量为 KONE China Token，新建页面时直接使用即可，无需重复覆盖
 
 ### 2. 颜色：严格使用 China Token 语义化层
 

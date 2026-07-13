@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LoginPage from './components/LoginPage.vue'
+import LoginPage from './components/LoginPageAMP.vue'
 </script>
 
 <template>

@@ -1,296 +1,204 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+/* ===== 全局重置 ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
-}
-
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-}
-
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+  padding: 0;
+  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  color: #141414;
+  background: #f5f7fa;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #app {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-#center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
-}
-
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
-}
-
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
-  position: relative;
   width: 100%;
+  min-height: 100vh;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
+:root {
+  /* =============================================
+   * Primitives 原始色板
+   * 来源层，不直接用于业务代码
+   * ============================================= */
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+  /* color.blue */
+  --color-blue-10: #f8faff;
+  --color-blue-50: #f3f6fe;
+  --color-blue-70: #e7edfe;
+  --color-blue-100: #d0dcfd;
+  --color-blue-200: #a1b9fb;
+  --color-blue-300: #7296f9;
+  --color-blue-400: #4373f7;
+  --color-blue-500: #1450f5;
+  --color-blue-600: #1444c8;
+  --color-blue-700: #14389b;
+  --color-blue-800: #142c6e;
+  --color-blue-900: #142041;
+
+  /* color.grey */
+  --color-grey-0: #ffffff;
+  --color-grey-50: #fafbfc;
+  --color-grey-100: #f5f7fa;
+  --color-grey-200: #f2f4f7;
+  --color-grey-250: #eaecf1;
+  --color-grey-300: #dfe1e8;
+  --color-grey-350: #d5d7de;
+  --color-grey-400: #c8cad0;
+  --color-grey-450: #abadb2;
+  --color-grey-500: #8f9195;
+  --color-grey-600: #676a72;
+  --color-grey-700: #43464f;
+  --color-grey-725: #333740;
+  --color-grey-750: #262a33;
+  --color-grey-775: #1d1f26;
+  --color-grey-800: #141414;
+  --color-grey-900: #000000;
+
+  /* color.green */
+  --color-green-50: #dbfbea;
+  --color-green-200: #8ceeba;
+  --color-green-400: #4bdb8f;
+  --color-green-500: #1ed273;
+  --color-green-600: #16b662;
+  --color-green-700: #0f9950;
+
+  /* color.orange */
+  --color-orange-50: #fff1db;
+  --color-orange-200: #ffd18d;
+  --color-orange-400: #ffb145;
+  --color-orange-550: #f98600;
+  --color-orange-600: #d97019;
+
+  /* color.red-UI */
+  --color-red-ui-50: #fef3f3;
+  --color-red-ui-200: #fba1a1;
+  --color-red-ui-400: #f74343;
+  --color-red-ui-500: #f51414;
+  --color-red-ui-600: #c41010;
+
+  /* =============================================
+   * China Token / Light（语义化层，引用 Primitives）
+   * 开发直接使用这一层
+   * ============================================= */
+
+  /* 品牌色 */
+  --brand-color: var(--color-blue-500);
+  --brand-color-hover: var(--color-blue-400);
+  --brand-color-active: var(--color-blue-600);
+  --brand-color-disabled: var(--color-blue-200);
+  --brand-color-light: var(--color-blue-50);
+  --brand-color-focus: var(--color-blue-100);
+  --brand-color-light-hover: var(--color-blue-100);
+  --brand-color-light-active: var(--color-blue-200);
+  --brand-color-light-disabled: var(--color-blue-50);
+
+  /* 状态色 */
+  --success-color: var(--color-green-500);
+  --success-color-hover: var(--color-green-400);
+  --success-color-active: var(--color-green-600);
+  --success-color-disabled: var(--color-green-200);
+  --success-color-light: var(--color-green-50);
+
+  --warning-color: var(--color-orange-550);
+  --warning-color-hover: var(--color-orange-400);
+  --warning-color-active: var(--color-orange-600);
+  --warning-color-disabled: var(--color-orange-200);
+  --warning-color-light: var(--color-orange-50);
+
+  --error-color: var(--color-red-ui-500);
+  --error-color-hover: var(--color-red-ui-400);
+  --error-color-active: var(--color-red-ui-600);
+  --error-color-disabled: var(--color-red-ui-200);
+  --error-color-light: var(--color-red-ui-50);
+
+  /* 文字色 */
+  --text-color-primary: var(--color-grey-800);
+  --text-color-secondary: var(--color-grey-600);
+  --text-color-placeholder: var(--color-grey-500);
+  --text-color-disabled: var(--color-grey-450);
+  --text-color-white: var(--color-grey-0);
+  --text-color-brand: var(--color-blue-500);
+  --text-color-link: var(--color-blue-500);
+
+  /* 背景色 */
+  --bg-color-container: var(--color-grey-0);
+  --bg-color-container-hover: var(--color-grey-100);
+  --bg-color-container-active: var(--color-grey-300);
+  --bg-color-page: var(--color-grey-100);
+  --bg-color-secondarycontainer: var(--color-grey-100);
+  --bg-color-component: var(--color-grey-200);
+  --bg-color-component-hover: var(--color-grey-300);
+  --bg-color-component-disabled: var(--color-grey-200);
+
+  /* 边框 */
+  --component-border: var(--color-grey-400);
+  --component-stroke: var(--color-grey-300);
+
+  /* 圆角 */
+  --radius-small: 2px;
+  --radius-default: 4px;
+  --radius-medium: 6px;
+  --radius-large: 8px;
+  --radius-extralarge: 12px;
+  --radius-circle: 128px;
+
+  /* =============================================
+   * TDesign CSS 变量覆盖（引用 China Token）
+   * ============================================= */
+
+  --td-brand-color: var(--brand-color);
+  --td-brand-color-1: var(--color-blue-10);
+  --td-brand-color-2: var(--color-blue-50);
+  --td-brand-color-3: var(--brand-color-light);
+  --td-brand-color-4: var(--brand-color-focus);
+  --td-brand-color-5: var(--brand-color-disabled);
+  --td-brand-color-6: var(--color-blue-300);
+  --td-brand-color-7: var(--brand-color-hover);
+  --td-brand-color-8: var(--brand-color);
+  --td-brand-color-9: var(--brand-color-active);
+  --td-brand-color-10: var(--color-blue-800);
+
+  --td-error-color: var(--error-color);
+  --td-error-color-1: var(--error-color-light);
+  --td-error-color-3: var(--error-color-disabled);
+  --td-error-color-5: var(--error-color-hover);
+  --td-error-color-6: var(--error-color);
+  --td-error-color-7: var(--error-color-active);
+
+  --td-success-color: var(--success-color);
+  --td-success-color-6: var(--success-color);
+  --td-success-color-7: var(--success-color-active);
+
+  --td-warning-color: var(--warning-color);
+  --td-warning-color-6: var(--warning-color);
+
+  --td-text-color-primary: var(--text-color-primary);
+  --td-text-color-secondary: var(--text-color-secondary);
+  --td-text-color-placeholder: var(--text-color-placeholder);
+  --td-text-color-disabled: var(--text-color-disabled);
+  --td-text-color-anti: var(--text-color-white);
+  --td-text-color-brand: var(--text-color-brand);
+  --td-text-color-link: var(--text-color-link);
+
+  --td-bg-color-container: var(--bg-color-container);
+  --td-bg-color-container-hover: var(--bg-color-container-hover);
+  --td-bg-color-container-active: var(--bg-color-container-active);
+  --td-bg-color-page: var(--bg-color-page);
+  --td-bg-color-component: var(--bg-color-component);
+  --td-bg-color-component-hover: var(--bg-color-component-hover);
+  --td-bg-color-component-disabled: var(--bg-color-component-disabled);
+
+  --td-component-border: var(--component-border);
+  --td-component-stroke: var(--component-stroke);
+
+  --td-radius-small: var(--radius-small);
+  --td-radius-default: var(--radius-default);
+  --td-radius-medium: var(--radius-medium);
+  --td-radius-large: var(--radius-large);
+  --td-radius-extraLarge: var(--radius-extralarge);
+  --td-radius-circle: var(--radius-circle);
 }
