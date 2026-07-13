@@ -19,6 +19,20 @@ body {
   min-height: 100vh;
 }
 
+/* ===== TDesign Message 覆盖：完整显示文字 ===== */
+.t-message {
+  max-width: none !important;
+  width: auto !important;
+  min-width: 320px !important;
+}
+
+.t-message__text,
+.t-message .t-message__text {
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+}
+
 :root {
   /* =============================================
    * Primitives 原始色板

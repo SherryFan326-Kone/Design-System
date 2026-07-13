@@ -13,7 +13,7 @@ const handleLogin = async () => {
   isLoading.value = true
   await new Promise(resolve => setTimeout(resolve, 800))
   isLoading.value = false
-  MessagePlugin.success('Redirecting to KONE Account...', 3000)
+  MessagePlugin.success('Login successful! Redirecting to KONE Account', 3000)
 }
 </script>
 
