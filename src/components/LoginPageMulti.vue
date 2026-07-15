@@ -407,7 +407,6 @@ const emailSendLabel = computed(() =>
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   box-sizing: border-box;
   padding: 24px;
 }
@@ -489,7 +488,6 @@ const emailSendLabel = computed(() =>
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   color: var(--text-color-secondary);
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
@@ -530,7 +528,6 @@ const emailSendLabel = computed(() =>
   border: none;
   outline: none;
   background: transparent;
-  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   color: var(--text-color-primary);
   min-width: 0;
@@ -595,7 +592,6 @@ const emailSendLabel = computed(() =>
 
 .country-code-text {
   font-size: 14px;
-  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .chevron-icon {
@@ -714,7 +710,6 @@ const emailSendLabel = computed(() =>
   font-size: 16px;
   font-weight: 400;
   color: var(--text-color-brand);
-  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
   box-sizing: border-box;
@@ -783,7 +778,6 @@ const emailSendLabel = computed(() =>
   font-size: 16px;
   font-weight: 600;
   color: var(--brand-color);
-  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   cursor: pointer;
   transition: background 0.2s;
   box-sizing: border-box;

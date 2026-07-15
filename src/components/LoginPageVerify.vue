@@ -176,7 +176,6 @@ const handleLogin = async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   box-sizing: border-box;
   padding: 24px;
 }
@@ -270,7 +269,6 @@ const handleLogin = async () => {
 }
 .custom-input :deep(.t-input__inner) {
   color: var(--text-color-primary);
-  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
 }
 .custom-input :deep(.t-input__inner::placeholder) {
@@ -311,7 +309,6 @@ const handleLogin = async () => {
   border: none;
   outline: none;
   background: transparent;
-  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   color: var(--text-color-primary);
   min-width: 0;
@@ -368,7 +365,6 @@ const handleLogin = async () => {
   line-height: 36px;
   color: var(--text-color-placeholder);
   letter-spacing: 2px;
-  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* ===== 操作区 ===== */

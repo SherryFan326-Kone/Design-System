@@ -77,7 +77,6 @@ const handleLogin = async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   box-sizing: border-box;
   padding: 24px;
 }
@@ -163,7 +162,6 @@ const handleLogin = async () => {
   border-color: #1450f5 !important;
   font-size: 16px !important;             /* H7 16/Semibold */
   font-weight: 600 !important;
-  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif !important;
   color: #ffffff !important;              /* text-color-white */
 }
 
