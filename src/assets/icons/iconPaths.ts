@@ -18,6 +18,8 @@ export const icons = {
   chevronUp: `<svg viewBox="0 0 16 16" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.4595 9.54076L11.5402 10.46L7.99985 6.91962L4.45947 10.46L3.54023 9.54076L7.99985 5.08114L12.4595 9.54076Z" fill="currentColor"/></svg>`,
   chevronDown: `<svg viewBox="0 0 16 16" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 5.91924L4.91924 5L8.45962 8.54038L12 5L12.9192 5.91924L8.45962 10.3789L4 5.91924Z" fill="currentColor"/></svg>`,
   viewList: `<svg viewBox="0 0 16 16" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 4.5H2V3.5H14V4.5Z" fill="currentColor"/><path d="M14 8.5H2V7.5H14V8.5Z" fill="currentColor"/><path d="M2 12.5H14V11.5H2V12.5Z" fill="currentColor"/></svg>`,
+  // layers icon — Figma node 612:1006
+  layers: `<svg viewBox="0 0 16 16" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.0731 4.97791L7.99976 7.50841L1.92641 4.97791C1.51598 4.8069 1.51598 4.20041 1.92641 4.0294L7.99976 1.4989L14.0731 4.0294C14.4835 4.20041 14.4835 4.8069 14.0731 4.97791ZM3.42727 4.50366L7.99976 6.40881L12.5722 4.50366L7.99976 2.5985L3.42727 4.50366Z" fill="currentColor"/><path d="M1.49902 7.02665V8.25379L8.00001 11.1119L14.499 8.25466V7.02752L8.00001 9.8848L1.49902 7.02665Z" fill="currentColor"/><path d="M1.49902 10.4194V11.6466L8.00011 14.5048L14.499 11.6475V10.4204L8.00011 13.2776L1.49902 10.4194Z" fill="currentColor"/></svg>`,
 }
 
 export const iconPaths = {
