@@ -4,6 +4,7 @@ import LoginPageAMP from '../components/LoginPageAMP.vue'
 import LoginPageVerify from '../components/LoginPageVerify.vue'
 import LoginPageMulti from '../components/LoginPageMulti.vue'
 import NavigationPage from '../components/NavigationPage.vue'
+import TopNavPage from '../components/TopNavPage.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -13,6 +14,7 @@ const router = createRouter({
     { path: '/verify', name: 'login-verify', component: LoginPageVerify },
     { path: '/multi', name: 'login-multi', component: LoginPageMulti },
     { path: '/nav', name: 'navigation', component: NavigationPage },
+    { path: '/nav-top', name: 'navigation-top', component: TopNavPage },
   ],
 })
 
