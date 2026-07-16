@@ -6,6 +6,7 @@ import LoginPageMulti from '../components/LoginPageMulti.vue'
 import NavigationPage from '../components/NavigationPage.vue'
 import TopNavPage from '../components/TopNavPage.vue'
 import HeaderMenuPage from '../components/HeaderMenuPage.vue'
+import ListPage from '../components/ListPage.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -17,6 +18,7 @@ const router = createRouter({
     { path: '/nav', name: 'navigation', component: NavigationPage },
     { path: '/nav-top', name: 'navigation-top', component: TopNavPage },
     { path: '/nav-header', name: 'navigation-header', component: HeaderMenuPage },
+    { path: '/list', name: 'list', component: ListPage },
   ],
 })
 

@@ -206,7 +206,7 @@ body {
   --td-bg-color-component-hover: var(--bg-color-component-hover);
   --td-bg-color-component-disabled: var(--bg-color-component-disabled);
 
-  --td-component-border: var(--component-border);
+  --td-component-border: var(--component-stroke);
   --td-component-stroke: var(--component-stroke);
 
   --td-radius-small: var(--radius-small);
