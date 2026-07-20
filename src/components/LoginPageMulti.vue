@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import { MessagePlugin } from 'tdesign-vue-next'
 import koneLogo from '../assets/kone-logo.svg'
-import heroBg from '../assets/login-bg.png'
+import heroBg from '../assets/login-bg.jpg'
 
 const heroBgUrl = computed(() => `url(${heroBg})`)
 
