@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { MessagePlugin } from 'tdesign-vue-next'
+import koneLogo from '../assets/kone-logo.svg'
+import heroBg from '../assets/hero.png'
+
+const heroBgUrl = computed(() => `url(${heroBg})`)
 
 const username = ref('')
 const password = ref('')
@@ -80,7 +84,7 @@ const handleLogin = async () => {
       <!-- Logo + 标题 -->
       <div class="login-header">
         <img
-          src="https://www.figma.com/api/mcp/asset/e482c6bc-a3e1-4a6a-98b9-93b1793278a0"
+          :src="koneLogo"
           alt="KONE"
           class="kone-logo"
         />
@@ -183,7 +187,7 @@ const handleLogin = async () => {
 .login-bg {
   position: fixed;
   inset: 0;
-  background-image: url('https://www.figma.com/api/mcp/asset/73949747-b555-43ba-ba68-822650085779');
+  background-image: v-bind(heroBgUrl);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

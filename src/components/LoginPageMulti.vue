@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { MessagePlugin } from 'tdesign-vue-next'
+import koneLogo from '../assets/kone-logo.svg'
+import heroBg from '../assets/hero.png'
+
+const heroBgUrl = computed(() => `url(${heroBg})`)
 
 // 登录方式：phone | email | kone
 type LoginMode = 'phone' | 'email' | 'kone'
@@ -176,7 +180,7 @@ const emailSendLabel = computed(() =>
       <!-- Logo + 标题 -->
       <div class="login-header">
         <img
-          src="https://www.figma.com/api/mcp/asset/c105036c-5364-4b98-b575-176ceeb3fe38"
+          :src="koneLogo"
           alt="KONE"
           class="kone-logo"
         />
@@ -414,7 +418,7 @@ const emailSendLabel = computed(() =>
 .login-bg {
   position: fixed;
   inset: 0;
-  background-image: url('https://www.figma.com/api/mcp/asset/e6ce45b9-e787-4f95-90e6-40caff0dd45c');
+  background-image: v-bind(heroBgUrl);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
