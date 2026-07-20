@@ -1,10 +1,25 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
+import type { PrimaryTableCol } from 'tdesign-vue-next'
 import { icons } from '../assets/icons/iconPaths'
 import koneLogo from '../assets/kone-logo.svg'
-import type { PrimaryTableCol } from 'tdesign-vue-next'
+import emptyStateLight from '../assets/empty-state-light.svg'
 
-// ── 导航状态（复用 NavigationPage 结构）────────────────
+// ── 表格：空数据 + 与 ListPage 相同的列定义
+const emptyData = ref([])
+const columns: PrimaryTableCol[] = [
+  { colKey: 'row-select',  type: 'multiple', width: 46 },
+  { colKey: 'name',        title: '合同名称',    ellipsis: true },
+  { colKey: 'status',      title: '合同状态',    width: 120 },
+  { colKey: 'paymentType', title: '合同收付类型', width: 140 },
+  { colKey: 'field1',      title: '项目名称',    ellipsis: true },
+  { colKey: 'count',       title: '合同金额',    width: 140, align: 'right' },
+  { colKey: 'field2',      title: '项目名称',    ellipsis: true },
+  { colKey: 'field3',      title: '项目名称',    ellipsis: true },
+  { colKey: 'operation',   title: '操作',        width: 140 },
+]
+
+// ── 导航状态（同 NavigationPage）
 const collapsed = ref(false)
 const activeKey  = ref('5-3-1')
 const expanded   = ref<string[]>(['5', '5-3'])
@@ -44,112 +59,6 @@ function toggleExpand(key: string) {
 function select(key: string) { activeKey.value = key }
 function isActive(key: string) { return activeKey.value === key }
 function isGroupActive(key: string) { return activeKey.value.startsWith(key) }
-
-// ── 表格数据 ────────────────────────────────────────────
-// ── 合同状态枚举（t-tag 样式）
-type ContractStatus = 'fail' | 'audit' | 'pending' | 'executing' | 'finish'
-
-const STATUS_MAP: Record<ContractStatus, { label: string; theme: 'danger' | 'warning' | 'success' }> = {
-  fail:      { label: '已失效', theme: 'danger' },
-  audit:     { label: '审核中', theme: 'warning' },
-  pending:   { label: '待执行', theme: 'warning' },
-  executing: { label: '执行中', theme: 'success' },
-  finish:    { label: '已完成', theme: 'success' },
-}
-const STATUS_KEYS = Object.keys(STATUS_MAP) as ContractStatus[]
-
-// ── 收付类型枚举（圆点指示器样式，对应设计稿 ItemContentState）
-type PaymentType = 'receipt' | 'payment'
-
-const PAYMENT_MAP: Record<PaymentType, { label: string; color: string }> = {
-  receipt: { label: '收款', color: 'var(--error-color)' },    // 收款 → 红色
-  payment: { label: '付款', color: 'var(--success-color)' },  // 付款 → 绿色
-}
-const PAYMENT_KEYS: PaymentType[] = ['receipt', 'payment']
-
-interface RowData {
-  id: number
-  name: string
-  status: ContractStatus
-  count: number
-  paymentType: PaymentType
-  field1: string
-  field2: string
-  field3: string
-  field4: string
-  field5: string
-}
-
-
-const selectedRowKeys = ref<number[]>([])
-const pagination = ref({ current: 1, pageSize: 10, total: 101 })
-
-// 生成足够多的模拟数据（101条，覆盖所有翻页场景）
-const CONTRACT_NAMES = [
-  '2024年度电梯设备维保服务合同（北京区域）',
-  '商业综合体电梯安装及调试项目合同',
-  '智慧楼宇电梯物联网改造合同',
-  '年度电梯安全检测与评估服务协议',
-  '大型住宅小区扶梯采购及安装合同',
-  '医院专用病床电梯采购合同',
-  '轨道交通站台升降设备维保合同',
-  '工厂货梯定期保养与紧急维修合同',
-]
-
-const allData: RowData[] = Array.from({ length: 101 }, (_, i) => ({
-  id: i + 1,
-  name: CONTRACT_NAMES[i % CONTRACT_NAMES.length],
-  status: STATUS_KEYS[i % STATUS_KEYS.length],
-  count: Math.floor(Math.random() * 9000 + 1000),
-  paymentType: PAYMENT_KEYS[i % PAYMENT_KEYS.length],
-  field1: '项目名称',
-  field2: '项目名称',
-  field3: '项目名称',
-  field4: '项目名称',
-  field5: '项目名称',
-}))
-
-// 根据分页计算当前页数据
-const tableData = computed(() => {
-  const { current, pageSize } = pagination.value
-  const start = (current - 1) * pageSize
-  return allData.slice(start, start + pageSize)
-}) 
-
-// ── 列定义（顺序与设计稿表头一致，无横向滚动）
-const columns: PrimaryTableCol<RowData>[] = [
-  { colKey: 'row-select',  type: 'multiple', width: 46 },
-  { colKey: 'name',        title: '合同名称',    ellipsis: true },
-  { colKey: 'status',      title: '合同状态',    width: 120 },
-  { colKey: 'paymentType', title: '合同收付类型', width: 140 },
-  { colKey: 'field1',      title: '项目名称',    ellipsis: true },
-  { colKey: 'count',       title: '合同金额',    width: 140, align: 'right' },
-  { colKey: 'field2',      title: '项目名称',    ellipsis: true },
-  { colKey: 'field3',      title: '项目名称',    ellipsis: true },
-  { colKey: 'operation',   title: '操作',        width: 140 },
-]
-
-function handleManage(row: RowData) {
-  console.log('管理', row.id)
-}
-function handleDelete(row: RowData) {
-  console.log('删除', row.id)
-}
-
-// template slot 类型助手
-function asRow(row: unknown): RowData { return row as RowData }
-
-function onPageChange(pageInfo: { current: number; pageSize: number }) {
-  pagination.value.current = pageInfo.current
-  pagination.value.pageSize = pageInfo.pageSize
-}
-
-// 表头吸顶：向上滚动页面时，表头固定在顶部导航栏下方
-// container 指向 window，offsetTop = 顶栏 56px
-const headerAffixedTop = computed(() => ({
-  offsetTop: 56,
-  container: () => window,
-}))
 </script>
 
 <template>
@@ -175,16 +84,13 @@ const headerAffixedTop = computed(() => ({
       <!-- 侧边栏 -->
       <aside class="sidebar" :class="{ 'sidebar--collapsed': collapsed }">
         <div class="sidebar-scroll">
-
-          <!-- 展开态 -->
-          <nav v-if="!collapsed" class="menu-expanded" aria-label="主导航">
+          <nav v-if="!collapsed" class="menu-expanded">
             <template v-for="item in menuItems" :key="item.key">
               <template v-if="item.children">
                 <button
                   class="menu-1st"
                   :class="{ 'menu-1st--active': isActive(item.key), 'menu-1st--expanded': isExpanded(item.key) }"
                   @click="toggleExpand(item.key)"
-                  :aria-expanded="isExpanded(item.key)"
                 >
                   <span class="menu-prefix-icon" v-html="icons.server" aria-hidden="true" />
                   <span class="menu-text">{{ item.label }}</span>
@@ -197,7 +103,6 @@ const headerAffixedTop = computed(() => ({
                         class="menu-2nd"
                         :class="{ 'menu-2nd--active': isActive(sub.key), 'menu-2nd--expanded': isExpanded(sub.key) }"
                         @click="toggleExpand(sub.key)"
-                        :aria-expanded="isExpanded(sub.key)"
                       >
                         <span class="menu-text">{{ sub.label }}</span>
                         <span class="chevron" v-html="isExpanded(sub.key) ? icons.chevronUp : icons.chevronDown" />
@@ -212,8 +117,7 @@ const headerAffixedTop = computed(() => ({
                       </div>
                     </template>
                     <button
-                      v-else
-                      class="menu-2nd"
+                      v-else class="menu-2nd"
                       :class="{ 'menu-2nd--active': isActive(sub.key) }"
                       @click="select(sub.key)"
                     >
@@ -223,8 +127,7 @@ const headerAffixedTop = computed(() => ({
                 </div>
               </template>
               <button
-                v-else
-                class="menu-1st"
+                v-else class="menu-1st"
                 :class="{ 'menu-1st--active': isActive(item.key) }"
                 @click="select(item.key)"
               >
@@ -233,9 +136,7 @@ const headerAffixedTop = computed(() => ({
               </button>
             </template>
           </nav>
-
-          <!-- 收起态 -->
-          <nav v-else class="menu-collapsed" aria-label="主导航（收起）">
+          <nav v-else class="menu-collapsed">
             <button
               v-for="item in menuItems" :key="item.key"
               class="menu-icon-only"
@@ -247,10 +148,8 @@ const headerAffixedTop = computed(() => ({
             </button>
           </nav>
         </div>
-
-        <!-- 底部折叠按钮 -->
         <div class="sidebar-footer">
-          <button class="collapse-btn" @click="collapsed = !collapsed" :aria-label="collapsed ? '展开侧栏' : '收起侧栏'">
+          <button class="collapse-btn" @click="collapsed = !collapsed">
             <span v-html="icons.viewList" />
           </button>
         </div>
@@ -265,80 +164,35 @@ const headerAffixedTop = computed(() => ({
             <h1 class="page-title">标题</h1>
           </div>
 
-          <!-- 表格 -->
+          <!-- 表格（空数据）：表头与 ListPage 一致，空状态使用插画 -->
           <div class="table-wrap">
             <t-table
-              :data="tableData"
+              :data="emptyData"
               :columns="columns"
-              v-model:selectedRowKeys="selectedRowKeys"
               row-key="id"
               size="medium"
-              hover
-              :header-affixed-top="headerAffixedTop"
               class="kone-table"
             >
-            <!-- 合同名称：超出省略 + hover tooltip 显示完整 -->
-            <template #name="{ row }">
-              <t-tooltip :content="asRow(row).name" placement="top-left">
-                <div class="name-cell">{{ asRow(row).name }}</div>
-              </t-tooltip>
-            </template>
-
-            <!-- 合同状态：t-tag 多色标签 -->
-            <template #status="{ row }">
-              <t-tag
-                :theme="STATUS_MAP[asRow(row).status].theme"
-                variant="light"
-              >
-                {{ STATUS_MAP[asRow(row).status].label }}
-              </t-tag>
-            </template>
-
-            <!-- 合同收付类型：圆点指示器（对应设计稿 ItemContentState） -->
-            <template #paymentType="{ row }">
-              <div class="status-cell">
-                <span
-                  class="status-dot"
-                  :style="{ background: PAYMENT_MAP[asRow(row).paymentType].color }"
-                />
-                <span
-                  class="status-text"
-                  :style="{ color: PAYMENT_MAP[asRow(row).paymentType].color }"
-                >
-                  {{ PAYMENT_MAP[asRow(row).paymentType].label }}
-                </span>
-              </div>
-            </template>
-
-            <!-- 操作列 -->            <template #operation="{ row }">
-              <div class="op-cell">
-                <a class="op-link" @click="handleManage(row)">管理</a>
-                <a class="op-link op-link--danger" @click="handleDelete(row)">删除</a>
-              </div>
-            </template>
-          </t-table>
+              <!-- 自定义空状态 -->
+              <template #empty>
+                <div class="empty-body">
+                  <img :src="emptyStateLight" alt="空状态" class="empty-illustration" />
+                  <div class="empty-text-group">
+                    <p class="empty-title">暂无数据</p>
+                    <p class="empty-desc">暂无数据描述信息</p>
+                  </div>
+                </div>
+              </template>
+            </t-table>
           </div>
 
-        </div><!-- /content-card -->
-
-        <!-- 分页 -->
-        <div class="pagination-bar">
-          <t-pagination
-            v-model="pagination.current"
-            v-model:pageSize="pagination.pageSize"
-            :total="pagination.total"
-            show-jumper
-            show-page-size
-            :page-size-options="[10, 20, 50]"
-            @change="onPageChange"
-          />
         </div>
 
         <!-- 页脚 -->
         <footer class="page-footer">
           Copyright @ 2019–2022 KONE. All Rights Reserved
         </footer>
-      </div><!-- /content-area -->
+      </div>
     </div>
   </div>
 </template>
@@ -354,39 +208,25 @@ const headerAffixedTop = computed(() => ({
 
 /* ══ 顶部导航栏 ════════════════════════════════════════ */
 .top-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 200;
-  height: 56px;
-  background: var(--bg-color-container);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 56px; background: var(--bg-color-container);
   border-bottom: 1px solid var(--component-stroke);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  box-sizing: border-box;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; box-sizing: border-box;
 }
 .top-nav-left { display: flex; align-items: center; gap: 24px; }
 .kone-logo { display: block; height: 28px; width: auto; object-fit: contain; }
 .app-name { font-size: 18px; font-weight: 600; line-height: 26px; color: var(--text-color-primary); white-space: nowrap; }
 .top-nav-right { display: flex; align-items: center; gap: 8px; }
 .icon-btn {
-  width: 32px; height: 32px; padding: 0;
-  border: none; border-radius: var(--radius-default);
-  background: transparent;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; color: var(--text-color-brand);
-  transition: background 0.15s, color 0.15s;
+  width: 32px; height: 32px; padding: 0; border: none; border-radius: var(--radius-default);
+  background: transparent; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text-color-brand); transition: background 0.15s, color 0.15s;
 }
 .icon-btn:hover { background: var(--brand-color-light); color: var(--brand-color); }
 
-/* ══ 主体布局 ══════════════════════════════════════════ */
-.main-body {
-  display: flex;
-  margin-top: 56px;
-  min-height: calc(100vh - 56px);
-  overflow: hidden;
-}
+/* ══ 主体 ══════════════════════════════════════════════ */
+.main-body { display: flex; margin-top: 56px; min-height: calc(100vh - 56px); overflow: hidden; }
 
 /* ══ 侧边栏 ════════════════════════════════════════════ */
 .sidebar {
@@ -397,8 +237,6 @@ const headerAffixedTop = computed(() => ({
 }
 .sidebar--collapsed { width: 64px; }
 .sidebar-scroll { flex: 1; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: var(--component-stroke) transparent; }
-
-/* 菜单 */
 .menu-expanded { padding: 16px 8px 8px; display: flex; flex-direction: column; gap: 2px; }
 .menu-1st {
   width: 100%; min-height: 36px; display: flex; align-items: center; gap: 8px;
@@ -430,8 +268,8 @@ const headerAffixedTop = computed(() => ({
   padding: 7px 16px 7px 72px; border: none; border-radius: var(--radius-medium);
   background: transparent; font-size: 14px; font-weight: 400; line-height: 22px;
   color: var(--text-color-secondary); font-family: inherit; cursor: pointer;
-  text-align: left; box-sizing: border-box; overflow: hidden; text-overflow: ellipsis;
-  white-space: nowrap; transition: background 0.15s, color 0.15s;
+  text-align: left; box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
 }
 .menu-3rd:hover { background: var(--bg-color-container-hover); color: var(--text-color-primary); }
 .menu-3rd--active { background: var(--brand-color-light); color: var(--brand-color); }
@@ -439,7 +277,7 @@ const headerAffixedTop = computed(() => ({
 .menu-icon-only {
   width: 48px; height: 36px; display: flex; align-items: center; justify-content: center;
   border: none; border-radius: var(--radius-medium); background: transparent;
-  cursor: pointer; color: var(--text-color-secondary); font-size: 20px; transition: background 0.15s, color 0.15s;
+  cursor: pointer; color: var(--text-color-secondary); transition: background 0.15s, color 0.15s;
 }
 .menu-icon-only:hover { background: var(--bg-color-container-hover); color: var(--text-color-primary); }
 .menu-icon-only--active { background: var(--brand-color-light); color: var(--brand-color); }
@@ -457,14 +295,10 @@ const headerAffixedTop = computed(() => ({
 
 /* ══ 内容区 ════════════════════════════════════════════ */
 .content-area {
-  margin-left: 232px;
-  flex: 1;
-  min-width: 0;
+  margin-left: 232px; flex: 1; min-width: 0;
   padding: 24px 24px 0 24px;
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100vh - 56px);
-  box-sizing: border-box;
+  display: flex; flex-direction: column;
+  min-height: calc(100vh - 56px); box-sizing: border-box;
   transition: margin-left 0.2s ease;
 }
 .content-area--collapsed { margin-left: 64px; }
@@ -482,137 +316,71 @@ const headerAffixedTop = computed(() => ({
 .page-title-bar {
   padding: 22px 32px;
   flex-shrink: 0;
-  border-radius: var(--radius-medium) var(--radius-medium) 0 0;
-  background: var(--bg-color-container);
 }
 .page-title {
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 28px;
-  color: var(--text-color-primary);
-  margin: 0;
+  font-size: 20px; font-weight: 600; line-height: 28px;
+  color: var(--text-color-primary); margin: 0;
 }
-
-/* ══ 表格容器 ══════════════════════════════════════════ */
+/* ══ 表格（与 ListPage 一致）══════════════════════════ */
 .table-wrap {
   flex: 1;
-  padding: 0 32px 32px 32px;
+  padding: 0 32px;
 }
 
-/* ══ 表格 ══════════════════════════════════════════════ */
-.kone-table {
-  width: calc(100% - 64px);
-  margin: 0 32px;
-}
+.kone-table { width: 100%; }
 
-/* 表头背景 */
-:deep(.t-table__header) {
-  background: var(--bg-color-secondarycontainer);
-}
+:deep(.t-table__header) { background: var(--bg-color-secondarycontainer); }
 :deep(.t-table__header th) {
   background: var(--bg-color-secondarycontainer) !important;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 14px; font-weight: 400;
   color: var(--text-color-placeholder);
   border-bottom: 1px solid var(--component-stroke);
 }
+:deep(.t-table) { border: none; }
 
-/* 表格行 */
-:deep(.t-table__body td) {
-  font-size: 14px;
-  font-weight: 400;
+/* ══ 空状态主体 ═══════════════════════════════════════ */
+.empty-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  /* 设计稿空状态块 top: 342px，distance from card top ≈ 178px */
+  padding: 80px 0;
+}
+
+.empty-illustration {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  /* 设计稿插画和文字有 -8px 的上移，用 margin-bottom 实现 */
+  margin-bottom: -8px;
+}
+
+.empty-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.empty-title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
   color: var(--text-color-primary);
-  border-bottom: 1px solid var(--component-stroke);
-  padding: 12px 16px;
-}
-
-/* 去除表格外边框 */
-:deep(.t-table) {
-  border: none;
-}
-
-/* ── 合同名称：单行省略 */
-.name-cell {
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin: 0;
   white-space: nowrap;
-  max-width: 100%;
-  cursor: default;
 }
 
-/* ── 合同状态 tag 颜色（覆盖 TDesign light variant）*/
-:deep(.t-tag--danger.t-tag--light) {
-  background: var(--error-color-light);
-  border-color: var(--error-color);
-  color: var(--error-color);
-}
-:deep(.t-tag--warning.t-tag--light) {
-  background: var(--warning-color-light);
-  border-color: var(--warning-color);
-  color: var(--warning-color);
-}
-:deep(.t-tag--success.t-tag--light) {
-  background: var(--success-color-light);
-  border-color: var(--success-color);
-  color: var(--success-color);
-}
-
-/* ── 合同收付类型：圆点指示器（对应设计稿 ItemContentState）*/
-.status-cell {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.status-text {
-  font-size: 14px;
+.empty-desc {
+  font-size: 12px;
   font-weight: 400;
-  line-height: 22px;
+  line-height: 20px;
+  color: var(--text-color-secondary);
+  margin: 0;
   white-space: nowrap;
-}
-.op-cell {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-.op-link {
-  font-size: 14px;
-  line-height: 22px;
-  color: var(--brand-color);
-  cursor: pointer;
-  text-decoration: none;
-  transition: color 0.15s;
-}
-.op-link:hover { color: var(--brand-color-hover); }
-.op-link--danger { color: var(--brand-color); }
-.op-link--danger:hover { color: var(--error-color); }
-
-/* ══ 分页区 ════════════════════════════════════════════ */
-.pagination-bar {
-  padding: 0 32px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  background: var(--bg-color-container);
-  border-radius: 0 0 var(--radius-medium) var(--radius-medium);
-}
-
-:deep(.t-pagination) {
-  justify-content: flex-end;
-  width: 100%;
-}
-
-/* 当前页按钮 */
-:deep(.t-pagination__btn.t-is-current) {
-  background: var(--brand-color) !important;
-  color: #fff !important;
-  border-color: var(--brand-color) !important;
 }
 
 /* ══ 页脚 ══════════════════════════════════════════════ */
